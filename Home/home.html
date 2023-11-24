@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h2>Scroll alle sezioni</h2>
+
+<button onclick="scrollToNextSection()">Vai alla prossima sezione</button>
+
+<p>Alcuni contenuti...</p>
+
+<div id="section1" style="margin-top:1000px;">
+  <h2>Sezione 1</h2>
+  <p>Questa è la sezione 1 a cui vuoi scorrere.</p>
+</div>
+
+<div id="section2" style="margin-top:2000px;">
+  <h2>Sezione 2</h2>
+  <p>Questa è la sezione 2 a cui vuoi scorrere.</p>
+</div>
+
+<script>
+let currentSectionIndex = 0;
+const sections = ["section1", "section2"]; // Aggiungi qui gli ID di tutte le sezioni
+
+function scrollToNextSection() {
+  const nextSectionId = sections[currentSectionIndex];
+  const nextSectionElement = document.getElementById(nextSectionId);
+  nextSectionElement.scrollIntoView({behavior: "smooth", block: "start"});
+  
+  // Passa alla prossima sezione, o torna alla prima sezione se siamo alla fine dell'array
+  currentSectionIndex = (currentSectionIndex + 1) % sections.length;
+}
+</script>
+
+</body>
+</html>

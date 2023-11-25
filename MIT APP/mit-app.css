@@ -1,0 +1,48 @@
+body{
+    overflow-x: hidden;
+}
+
+.home{
+    width: 100%;
+
+    margin-top: 1rem;
+    margin-left: 160vh;
+
+    position: absolute;
+    top: 0;
+}
+
+.home p{
+    width: 15%;
+
+    font-size: 1.5rem;
+}
+
+.home p span{
+    
+    margin-right: 5px;
+}
+
+span{
+    color: var(--light-red);
+}
+
+table{
+    width: 100%;
+
+    margin-top: 10rem;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+
+p{
+    text-align: center;
+
+    font-size: 2.5rem;
+
+    margin-bottom: 5rem;
+}

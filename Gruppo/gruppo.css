@@ -1,0 +1,69 @@
+body{
+    overflow-x: hidden;
+}
+
+.home{
+    width: 100%;
+
+    margin-top: 1rem;
+    margin-left: 160vh;
+
+    position: absolute;
+    top: 0;
+}
+
+.home p{
+    width: 15%;
+
+    font-size: 1.5rem;
+}
+
+.home p span{
+    
+    margin-right: 5px;
+}
+
+span{
+    color: var(--light-red);
+}
+
+.presentazione p{
+    font-size: 2.5rem;
+    text-align: center;
+
+    margin-bottom: 3rem;
+}
+
+.fra{
+    width: 50%;
+
+    float: right;
+    border-left: 2px var(--light-red) solid;
+}
+
+div h1{
+    text-align: center;
+}
+
+div .nome{
+    font-size: 2.5rem;
+    text-align: center;
+}
+
+div .dettagli{
+    margin-left: 1rem;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+div .dettagli img{
+    border-radius: 100%;
+}
+
+div .dettagli .about{
+    font-size: 1.5rem;
+    margin-left: 1rem;
+}

@@ -1,0 +1,46 @@
+*{
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+    margin: 0;
+    text-decoration: none;
+    font-family: Poppins, Arial, Helvetica, sans-serif;
+    color: var(--white);
+    outline: none;
+}
+
+body{
+    background-color: var(--black);
+}
+
+:root{
+    --black: #0B090A;
+    --dark-grey: #161A1D;
+    --dark-red: #660708;
+    --red: #A4161A;
+    --light-red: #E5383B;
+    --grey: #B1A7A6;
+    --light-grey: #D3D3D3;
+    --white: #FBFBFD;
+}
+
+/* ===== Scrollbar CSS ===== */
+  /* Firefox */
+  * {
+    scrollbar-width: none;
+    scrollbar-color: #e5383d #0b090a;
+  }
+
+  /* Chrome, Edge, and Safari */
+  *::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  *::-webkit-scrollbar-track {
+    background: #0b090a;
+  }
+
+  *::-webkit-scrollbar-thumb {
+    background-color: #e5383d;
+    border-radius: 1px;
+    border: 0px none #000000;
+  }

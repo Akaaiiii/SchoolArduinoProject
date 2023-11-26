@@ -1,0 +1,180 @@
+#include <Servo.h>
+#include <SoftwareSerial.h>
+
+#define JOYSTICK_X A0
+#define JOYSTICK_Y A1
+#define JOYSTICK_BUTTON 13
+
+#define JOYSTICK1_X A2
+#define JOYSTICK1_Y A3
+#define JOYSTICK1_BUTTON 11
+
+int rosso=4, blu=5, giallo=6, verde=7;
+int r=10, g=9, b=8;
+
+int saluta = 0;
+int angolo_precedente = 0;
+
+Servo paolo;
+SoftwareSerial BTSerial(2, 3);
+
+ 
+void setup(){
+  Serial.begin(9600);
+  pinMode(JOYSTICK_BUTTON, INPUT_PULLUP);
+  pinMode(JOYSTICK1_BUTTON, INPUT_PULLUP);
+  
+  pinMode(4, OUTPUT);
+  pinMode(5, OUTPUT);
+  pinMode(6, OUTPUT);
+  pinMode(7, OUTPUT);
+  
+  pinMode(10, OUTPUT);
+  pinMode(9, OUTPUT);
+  pinMode(8, OUTPUT);
+  
+  paolo.attach(12);
+  paolo.write(0);
+
+  BTSerial.begin(9600);
+}
+ 
+void loop(){
+  int x = analogRead(JOYSTICK_X);
+  int y = analogRead(JOYSTICK_Y);
+  int button = !digitalRead(JOYSTICK_BUTTON);
+
+  int x1 = analogRead(JOYSTICK1_X);
+  int y1 = analogRead(JOYSTICK1_Y);
+  int button1 = !digitalRead(JOYSTICK1_BUTTON); 
+
+  int angolo = map(x1, 0, 1023, 0, 179);
+ 
+  Serial.print("X: " + String(x));
+  Serial.print(",\tY:" + String(y));
+  Serial.println(",\tP: " + String(button));
+
+  Serial.print("X1: " + String(x1));
+  Serial.print(",\tY1:" + String(y1));
+  Serial.println(",\tP1: " + String(button1));
+
+  if(x<400){
+    digitalWrite(4, HIGH);
+    delay(100);
+    digitalWrite(4,LOW);
+  }
+  if(x>600){
+    digitalWrite(5, HIGH);
+    delay(100);
+    digitalWrite(5,LOW);
+  }
+  if(y<400){
+    digitalWrite(6, HIGH);
+    delay(100);
+    digitalWrite(6,LOW);
+  }
+  if(y>600){
+    digitalWrite(7, HIGH);
+    delay(100);
+    digitalWrite(7,LOW);
+  }
+  if(button==1){
+    digitalWrite(4, HIGH);
+    digitalWrite(5, HIGH);
+    digitalWrite(6, HIGH);
+    digitalWrite(7, HIGH);
+    delay(500);
+    digitalWrite(4, LOW);
+    digitalWrite(5, LOW);
+    digitalWrite(6, LOW);
+    digitalWrite(7, LOW);
+
+    setColor(255, 0, 0); // rosso
+    delay(500);
+    setColor(0, 255, 0); // verde
+    delay(500);
+    setColor(0, 0, 255); // blu
+    delay(500);
+    setColor(0, 0, 0);
+   }
+
+   if(x1<400){
+    paolo.write(angolo);
+    angolo--;
+    angolo_precedente = angolo;
+  }
+  if(x1>600){
+    paolo.write(angolo);
+    angolo++;
+    angolo_precedente = angolo;
+  }
+  if(400<x1<600){
+    paolo.write(angolo_precedente);
+  }
+  if(button1 == 1){
+    for(int i = 0; i<=180; i++){
+        paolo.write(i);
+        delay(3);
+    }
+    for(int i = 180; i>=0; i--){
+        paolo.write(i);
+        delay(3);
+    }
+  }
+
+
+  if(BTSerial.available()){
+    char dato = BTSerial.read();
+    switch(dato){
+      case 'R': digitalWrite(rosso, HIGH); 
+      break;
+      case 'r': digitalWrite(rosso, LOW);
+      break;
+      case 'B': digitalWrite(blu, HIGH); 
+      break;
+      case 'b': digitalWrite(blu, LOW);
+      break;
+      case 'G': digitalWrite(giallo, HIGH); 
+      break;
+      case 'g': digitalWrite(giallo, LOW);
+      break;
+      case 'V': digitalWrite(verde, HIGH); 
+      break;
+      case 'v': digitalWrite(verde, LOW);
+      break;
+      case 'n': 
+      digitalWrite(rosso, HIGH);
+      digitalWrite(blu, HIGH);
+      digitalWrite(giallo, HIGH);
+      digitalWrite(verde, HIGH);
+      break;
+      case 'f': 
+      digitalWrite(rosso, LOW);
+      digitalWrite(blu, LOW);
+      digitalWrite(giallo, HIGH);
+      digitalWrite(verde, HIGH);
+      break;
+      case 'K':
+         setColor(255, 0, 0); 
+         delay(500);
+         setColor(0, 255, 0);
+         delay(500);
+         setColor(0, 0, 255);
+         delay(500);
+         setColor(0, 0, 0);
+      default: break;
+    }
+    Serial.println(dato);
+  }
+  delay(10);
+
+
+
+  
+}
+
+void setColor(int redValue, int greenValue, int blueValue) {
+  analogWrite(r, redValue);
+  analogWrite(g, greenValue);
+  analogWrite(b, blueValue);
+}
